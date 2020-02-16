@@ -43,7 +43,11 @@ public class TopThreeWordsTests {
     @Test
     void numbersShouldNotCountAsWord() {
         assertArrayEquals(new String[]{"not", "a", "number"}, Application.topThreeWords("123 not a number"));
+    }
 
+    @Test
+    void punctuationShouldNotCountAsWord() {
+        assertArrayEquals(new String[]{"punctuation", "aren't", "words"}, Application.topThreeWords("??.. ++ -- !@£$%^&*()[] punctuation aren't words"));
     }
 
 
