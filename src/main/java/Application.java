@@ -1,6 +1,3 @@
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,6 +22,7 @@ public class Application {
     /**
      * topThreeWords is a function that takes in a String and returns a String array of the top 3 most occurring words.
      * It is case insensitive and apostrophes can be part of words, though they will be counted as a separate word if they contain one or more.
+     *
      * @param input
      * @return String[]
      */
@@ -35,7 +33,7 @@ public class Application {
         Pattern pattern = Pattern.compile("(?i)([A-Z']+)");
         Matcher matcher = pattern.matcher(lowercaseInput);
 
-        // We loop over everything that matches a word and up the count in our map
+        // Go over the string once from front to back and add one to the count for everything that matches as a word.
         while (matcher.find()) {
             String word = matcher.group();
             wordCountMap.put(word, wordCountMap.getOrDefault(word, 0) + 1);

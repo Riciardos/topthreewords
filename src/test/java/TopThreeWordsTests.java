@@ -4,23 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class TopThreeWordsTests {
 
-
-
-    @Test
-    void emptyStringShouldReturnEmptyArray() {
-        assertArrayEquals(new String[0],Application.topThreeWords(""));
-    }
-
-    @Test
-    void singleWordShouldReturnArrayWithOneElement() {
-        assertArrayEquals(Application.topThreeWords("Something"), new String[]{"something"});
-    }
-
-    @Test
-    void multipleWordsShouldCutDownToThree() {
-        assertArrayEquals(new String[]{"multiple", "words", "will"}, Application.topThreeWords("Multiple words will cut down"));
-    }
-
     @Test
     void givenTestCases() {
         assertArrayEquals(new String[]{"a", "of", "on"}, Application.topThreeWords("In a village of La Mancha, the name of which I have\n" +
@@ -35,20 +18,45 @@ public class TopThreeWordsTests {
     }
 
     @Test
+    void emptyStringShouldReturnEmptyArray() {
+        assertArrayEquals(new String[0], Application.topThreeWords(""));
+    }
+
+    @Test
+    void singleWordShouldReturnArrayWithOneElement() {
+        assertArrayEquals(Application.topThreeWords("Something"), new String[]{"something"});
+    }
+
+    @Test
+    void multipleWordsShouldCutDownToThree() {
+        assertArrayEquals(new String[]{"multiple", "words", "will"}, Application.topThreeWords("Multiple words will cut down"));
+    }
+
+    @Test
+    void wordsWithApostrophiesShouldBeCountedSeparately() {
+        assertArrayEquals(new String[]{"wont", "won't", "w'on't"}, Application.topThreeWords("wont wont wont won't won't w'on't wont won't"));
+
+    }
+
+    @Test
     void apostrophiesOnlyCountsAsWord() {
-        // It was unclear if apostrophes only should still count as a word
-        assertArrayEquals(new String[]{"'''''''", "non", "apostrophe"},Application.topThreeWords("''''''' ''''''' ''''''' non apostrophe words"));
+        // It was unclear from the spec if apostrophes only should still count as a word
+        assertArrayEquals(new String[]{"'''''''", "non", "apostrophe"}, Application.topThreeWords("''''''' ''''''' ''''''' non apostrophe words"));
     }
 
     @Test
     void numbersShouldNotCountAsWord() {
-        assertArrayEquals(new String[]{"not", "a", "number"}, Application.topThreeWords("123 not a number"));
+        assertArrayEquals(new String[]{"not", "a", "number"}, Application.topThreeWords("123 123 not a number"));
     }
 
     @Test
     void punctuationShouldNotCountAsWord() {
-        assertArrayEquals(new String[]{"punctuation", "aren't", "words"}, Application.topThreeWords("??.. ++ -- !@£$%^&*()[] punctuation aren't words"));
+        assertArrayEquals(new String[]{"punctuation", "aren't", "words"}, Application.topThreeWords("?? ?? ++ ++ -- -- !@£$%^&*()[] punctuation aren't words"));
     }
 
+    @Test
+    void itShouldBeCaseInsensitive() {
+        assertArrayEquals(new String[]{"ignore", "cases"}, Application.topThreeWords("igNORE igNoRe ignore casES Cases cases"));
+    }
 
 }

@@ -4,6 +4,7 @@ Write a function that takes in a string and returns an array of the top 3 most o
 
 ### Usage
 
+Minimum JVM version is 8.
 Only pre-requisite to running the tests is to have Maven installed. 
 You can then run `mvn test` and it will run the test cases.
 If you would like to test out the function on the command line you can compile the package using `mvn package` 
